@@ -145,7 +145,11 @@ def get_geocoords(bot, trigger):
     address = r.json()[0]['address']
 
     # Zip codes give us town versus city
-    if 'city' in address.keys():
+    if 'region' in address.keys():
+        location = '{}, {}, {}'.format(address['city'],
+                                       address['region'],
+                                       address['country_code'].upper())
+    elif 'city' in address.keys():
         location = '{}, {}, {}'.format(address['city'],
                                        address['state'],
                                        address['country_code'].upper())
